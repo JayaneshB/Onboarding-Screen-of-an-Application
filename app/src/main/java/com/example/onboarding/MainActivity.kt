@@ -22,27 +22,38 @@ class MainActivity : AppCompatActivity() {
     var onBoardingViewPagr: ViewPager?=null
     var next:TextView?=null
     private lateinit var skip:AppCompatButton
+    private lateinit var start:AppCompatButton
+
     var position=0
     var sharedPreferences:SharedPreferences?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if(restorePrefData()) {
-            val intent= Intent(applicationContext,FirstActivity::class.java)
-            startActivity(intent)
-            finish( )
-        }
+//        if(restorePrefData()) {
+//            val intent= Intent(applicationContext,FirstActivity::class.java)
+//            startActivity(intent)
+//            finish( )
+//        }
 
         setContentView(R.layout.activity_main)
 
         tabLayout=findViewById(R.id.tab_indicator)
         next=findViewById(R.id.btn_next)
         skip=findViewById(R.id.skip_btn)
+        start=findViewById(R.id.btn_next)
+
 
 
         //click event on skip
         skip.setOnClickListener{
+            val intent=Intent(applicationContext,FirstActivity::class.java)
+            startActivity(intent)
+        }
+
+        //click event for start
+
+        start.setOnClickListener{
             val intent=Intent(applicationContext,FirstActivity::class.java)
             startActivity(intent)
         }
@@ -64,11 +75,11 @@ class MainActivity : AppCompatActivity() {
                 onBoardingViewPagr!!.currentItem=position
             }
 
-            if(position==Data.size){
-                savePrefData()
-                val intent=Intent(applicationContext,FirstActivity::class.java)
-                startActivity(intent)
-            }
+//            if(position==Data.size){
+//                savePrefData()
+//                val intent=Intent(applicationContext,FirstActivity::class.java)
+//                startActivity(intent)
+//            }
         }
 
         tabLayout!!.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
@@ -76,6 +87,7 @@ class MainActivity : AppCompatActivity() {
                 position=tab!!.position
                 if(tab.position==Data.size-1) {
                     next!!.text="Start"
+
                 } else {
                     next!!.text="Next"
                 }
